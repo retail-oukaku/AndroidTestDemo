@@ -1,7 +1,9 @@
 package com.example.myapplication
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.activity.enableEdgeToEdge
@@ -27,6 +29,11 @@ class MainActivity : ComponentActivity() {
             SecondActivity::class.java
         )
         startActivity(intent)
+    }
+
+    // 按钮点击事件触发跳转
+    fun openThirdActivity(view: View?) {
+        Log.v(TAG, "这是 Verbose 日志");
     }
 }
 

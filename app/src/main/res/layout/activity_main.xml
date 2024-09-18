@@ -18,4 +18,12 @@
         android:layout_height="wrap_content"
         android:text="Open Second Activity"
         android:onClick="openSecondActivity" />
+
+    <!-- 一个 Button 按钮，点击后跳转到第二个页面 -->
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Open Third Activity"
+        android:onClick="openThirdActivity" />
 </LinearLayout>
