@@ -66,4 +66,9 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    val mediaVersion = "1.2.0"
+    implementation("androidx.media3:media3-exoplayer:$mediaVersion")
+    implementation("androidx.media3:media3-ui:$mediaVersion")
+    implementation("androidx.media3:media3-exoplayer-dash:$mediaVersion")
 }
