@@ -13,6 +13,11 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
+            android:name=".PalyerActivity"
+            android:exported="false"
+            android:label="@string/title_activity_palyer"
+            android:theme="@style/Theme.MyApplication" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
@@ -23,7 +28,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SecondActivity"></activity>
+        <activity android:name=".SecondActivity" />
+        <activity android:name=".PlayerActivity" />
     </application>
 
 </manifest>

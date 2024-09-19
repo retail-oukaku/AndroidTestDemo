@@ -32,8 +32,17 @@ class MainActivity : ComponentActivity() {
     }
 
     // 按钮点击事件触发跳转
-    fun openThirdActivity(view: View?) {
-        Log.v(TAG, "这是 Verbose 日志");
+    fun openPlayActivity(view: View?) {
+//        val intent = Intent(
+//            this@MainActivity,
+//            PlayerActivity::class.java
+//        )
+//        startActivity(intent)
+        val intent = Intent(
+            this@MainActivity,
+            PlayerActivity::class.java
+        )
+        startActivity(intent)
     }
 }
 
