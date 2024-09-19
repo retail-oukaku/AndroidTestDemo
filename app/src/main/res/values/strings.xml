@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">My Application</string>
     <string name="title_activity_palyer">PalyerActivity</string>
-    <string name="media_url_mp3"> https://storage.googleapis.com/exoplayer-test-media-0/play.mp3</string>
+    <string name="media_url_mp3">https://storage.googleapis.com/exoplayer-test-media-0/play.mp3</string>
 </resources>

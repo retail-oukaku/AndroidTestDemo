@@ -1,6 +1,8 @@
 package com.example.myapplication
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.View
 import android.widget.SimpleExpandableListAdapter
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -16,13 +18,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.media3.common.MediaItem
 import androidx.media3.common.SimpleBasePlayer
 import androidx.media3.common.util.UnstableApi
+import androidx.media3.common.util.Util
 import androidx.media3.exoplayer.ExoPlayer
 import com.example.myapplication.databinding.ActivityPlayerBinding
-import com.example.myapplication.ui.theme.MyApplicationTheme
 
 
 class PlayerActivity : ComponentActivity() {
     private var player: ExoPlayer? = null
+    private var playWhenReady = true
+    private var currentWindow = 0
+    private var playbackPosition = 0L
 
     // 为了获取页面的某些东西？
     private val viewBinding by lazy(LazyThreadSafetyMode.NONE) {
@@ -34,6 +39,10 @@ class PlayerActivity : ComponentActivity() {
         player = ExoPlayer.Builder(this).build().also {
             exoPlayer -> viewBinding.videoView.player = exoPlayer
             val mediaItem = MediaItem.fromUri(getString(R.string.media_url_mp3))
+            exoPlayer.setMediaItem(mediaItem)
+            exoPlayer.playWhenReady = playWhenReady
+            exoPlayer.seekTo(currentWindow, playbackPosition)
+            exoPlayer.prepare()
         }
     }
 
@@ -44,4 +53,42 @@ class PlayerActivity : ComponentActivity() {
         setContentView(R.layout.activity_player)
     }
 
+
+    @OptIn(UnstableApi::class)
+    public override fun onStart() {
+        super.onStart()
+        if (Util.SDK_INT >= 24) {
+            initializePlayer()
+        }
+    }
+
+    @OptIn(UnstableApi::class)
+    public override fun onResume() {
+        super.onResume()
+        hideSystemUi()
+        if ((Util.SDK_INT < 24 || player == null)){
+            initializePlayer()
+        }
+    }
+
+    @SuppressLint("InlinedApi")
+    private fun hideSystemUi() {
+        viewBinding.videoView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LOW_PROFILE
+                or View.SYSTEM_UI_FLAG_FULLSCREEN
+                or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
+    }
+
+    @OptIn(UnstableApi::class)
+    private fun releasePlayer() {
+        player?.run {
+            playbackPosition = this.currentPosition
+            currentWindow = this.currentWindowIndex
+            playWhenReady = this.playWhenReady
+            release()
+        }
+        player = null
+    }
 }
