@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.annotation.SuppressLint
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.SimpleExpandableListAdapter
@@ -19,7 +20,11 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.SimpleBasePlayer
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.common.util.Util
+import androidx.media3.datasource.DefaultDataSourceFactory
+import androidx.media3.datasource.DefaultHttpDataSource
 import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.exoplayer.hls.HlsMediaSource
+import androidx.media3.exoplayer.source.ProgressiveMediaSource
 import com.example.myapplication.databinding.ActivityPlayerBinding
 
 
@@ -36,13 +41,20 @@ class PlayerActivity : ComponentActivity() {
 
     @OptIn(UnstableApi::class)
     private fun initializePlayer() {
+
         player = ExoPlayer.Builder(this).build().also {
             exoPlayer -> viewBinding.videoView.player = exoPlayer
-            val mediaItem = MediaItem.fromUri(getString(R.string.media_url_mp3))
+//            val mediaItem = MediaItem.fromUri(getString(R.string.media_url_mp3))
+            val videoUri = Uri.parse("asset:///oceans.mp4")
+            // Build the media item.
+            val mediaItem = MediaItem.fromUri(videoUri)
+// Set the media item to be played.
             exoPlayer.setMediaItem(mediaItem)
-            exoPlayer.playWhenReady = playWhenReady
-            exoPlayer.seekTo(currentWindow, playbackPosition)
+// Prepare the player.
             exoPlayer.prepare()
+// Start the playback.
+            exoPlayer.play()
+
         }
     }
 
@@ -65,9 +77,25 @@ class PlayerActivity : ComponentActivity() {
     @OptIn(UnstableApi::class)
     public override fun onResume() {
         super.onResume()
-        hideSystemUi()
+//        hideSystemUi()
         if ((Util.SDK_INT < 24 || player == null)){
             initializePlayer()
+        }
+    }
+
+    @OptIn(UnstableApi::class)
+    public override fun onPause() {
+        super.onPause()
+        if (Util.SDK_INT < 24) {
+            releasePlayer()
+        }
+    }
+
+    @OptIn(UnstableApi::class)
+    public override fun onStop() {
+        super.onStop()
+        if (Util.SDK_INT >= 24) {
+            releasePlayer()
         }
     }
 
