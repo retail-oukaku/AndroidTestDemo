@@ -39,13 +39,11 @@ class PlayerActivity : ComponentActivity() {
         ActivityPlayerBinding.inflate(layoutInflater)
     }
 
-    @OptIn(UnstableApi::class)
     private fun initializePlayer() {
-
         player = ExoPlayer.Builder(this).build().also {
             exoPlayer -> viewBinding.videoView.player = exoPlayer
 //            val mediaItem = MediaItem.fromUri(getString(R.string.media_url_mp3))
-            val videoUri = Uri.parse("asset:///oceans.mp4")
+            val videoUri = Uri.parse("asset:///BigBuckBunny_320x180.mp4")
             // Build the media item.
             val mediaItem = MediaItem.fromUri(videoUri)
 // Set the media item to be played.
@@ -54,7 +52,6 @@ class PlayerActivity : ComponentActivity() {
             exoPlayer.prepare()
 // Start the playback.
             exoPlayer.play()
-
         }
     }
 
