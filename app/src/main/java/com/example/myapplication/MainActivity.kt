@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -14,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.myapplication.ui.theme.MyApplicationTheme
 import java.io.File
 import java.io.FileOutputStream
+import java.io.IOException
 
 
 class MainActivity : ComponentActivity() {
@@ -62,12 +64,23 @@ class MainActivity : ComponentActivity() {
 
     // save oceans.mp4 in sandbox for test
     fun saveFileInSandbox(view: View?) {
-        // assetsのファイルを取得
-        val inputStream = this.assets.open("oceans.mp4")
-        // 保存先
-        val file = File(this.filesDir, "savedOceans.mp4")
-        val outputStream = FileOutputStream(file)
+        copyAssetToInternalStorage(this, assetFileName = "oceans.mp4")
+    }
 
+    private fun copyAssetToInternalStorage(context: Context, assetFileName: String): File {
+        val file = File(context.filesDir, assetFileName)
+
+        try {
+            context.assets.open(assetFileName).use { inputStream ->
+                FileOutputStream(file).use { outputStream ->
+                    inputStream.copyTo(outputStream)
+                }
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+
+        return file
     }
 }
 
