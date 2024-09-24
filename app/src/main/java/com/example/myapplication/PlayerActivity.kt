@@ -56,6 +56,26 @@ class PlayerActivity : ComponentActivity() {
         videoView.player = player
     }
 
+    // sandboxから取得Mp4の再生
+    private fun initializePlayer2() {
+        player = ExoPlayer.Builder(this).build().also {
+                exoPlayer ->
+//            val mediaItem = MediaItem.fromUri(getString(R.string.media_url_mp3))
+            val videoUri = Uri.parse("https://storage.googleapis.com/exoplayer-test-media-0/BigBuckBunny_320x180.mp4")
+            // Build the media item.
+            val mediaItem = MediaItem.fromUri(videoUri)
+// Set the media item to be played.
+            exoPlayer.setMediaItem(mediaItem)
+// Prepare the player.
+            exoPlayer.prepare()
+// Start the playback.
+            exoPlayer.play()
+        }
+        videoView = findViewById(R.id.video_view)
+
+        videoView.player = player
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,7 +88,7 @@ class PlayerActivity : ComponentActivity() {
     public override fun onStart() {
         super.onStart()
         if (Util.SDK_INT >= 24) {
-            initializePlayer1()
+            initializePlayer()
         }
     }
 
@@ -76,7 +96,7 @@ class PlayerActivity : ComponentActivity() {
     public override fun onResume() {
         super.onResume()
         if ((Util.SDK_INT < 24 || player == null)){
-            initializePlayer1()
+            initializePlayer()
         }
     }
 

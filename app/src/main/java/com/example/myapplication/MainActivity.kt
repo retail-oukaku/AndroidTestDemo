@@ -12,6 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.myapplication.ui.theme.MyApplicationTheme
+import java.io.File
+import java.io.FileOutputStream
 
 
 class MainActivity : ComponentActivity() {
@@ -58,6 +60,15 @@ class MainActivity : ComponentActivity() {
         startActivity(intent)
     }
 
+    // save oceans.mp4 in sandbox for test
+    fun saveFileInSandbox(view: View?) {
+        // assetsのファイルを取得
+        val inputStream = this.assets.open("oceans.mp4")
+        // 保存先
+        val file = File(this.filesDir, "savedOceans.mp4")
+        val outputStream = FileOutputStream(file)
+
+    }
 }
 
 @Composable

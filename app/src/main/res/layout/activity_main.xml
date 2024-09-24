@@ -33,4 +33,11 @@
         android:layout_height="wrap_content"
         android:text="Open Play Activity2"
         android:onClick="openPlayActivity2" />
+
+    <Button
+        android:id="@+id/buttonSaveMp4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save oceans in sandbox"
+        android:onClick="saveFileInSandbox" />
 </LinearLayout>

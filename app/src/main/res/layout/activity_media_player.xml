@@ -5,11 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.media3.ui.PlayerView
-        android:id="@+id/play_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:show_buffering="when_playing"
-        app:show_shuffle_button="true"
-        />
+    <!-- 一个 TextView 显示文本 -->
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello, World!" />
 </LinearLayout>
