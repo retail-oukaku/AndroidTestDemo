@@ -7,11 +7,13 @@ import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.annotation.OptIn
 import androidx.media3.common.MediaItem
+import androidx.media3.common.Player.REPEAT_MODE_ONE
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.common.util.Util
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
 import com.example.myapplication.databinding.ActivityPlayerBinding
+import java.io.File
 
 
 class PlayerActivity : ComponentActivity() {
@@ -63,11 +65,14 @@ class PlayerActivity : ComponentActivity() {
         player = ExoPlayer.Builder(this).build().also {
                 exoPlayer ->
 //            val mediaItem = MediaItem.fromUri(getString(R.string.media_url_mp3))
-            val videoUri = Uri.parse("https://storage.googleapis.com/exoplayer-test-media-0/BigBuckBunny_320x180.mp4")
+            val file = File(this.filesDir, "oceans.mp4")
+            val videoUri = Uri.fromFile(file)
+
             // Build the media item.
             val mediaItem = MediaItem.fromUri(videoUri)
 // Set the media item to be played.
             exoPlayer.setMediaItem(mediaItem)
+            exoPlayer.repeatMode = REPEAT_MODE_ONE;
 // Prepare the player.
             exoPlayer.prepare()
 // Start the playback.
