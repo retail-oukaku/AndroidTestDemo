@@ -1,7 +1,9 @@
 package com.example.myapplication
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.annotation.OptIn
 import androidx.media3.common.MediaItem
@@ -69,7 +71,7 @@ class PlayerActivity : ComponentActivity() {
 // Prepare the player.
             exoPlayer.prepare()
 // Start the playback.
-            exoPlayer.play()
+//            exoPlayer.play()
         }
         videoView = findViewById(R.id.video_view)
 
@@ -88,7 +90,7 @@ class PlayerActivity : ComponentActivity() {
     public override fun onStart() {
         super.onStart()
         if (Util.SDK_INT >= 24) {
-            initializePlayer()
+            initializePlayer2()
         }
     }
 
@@ -96,7 +98,7 @@ class PlayerActivity : ComponentActivity() {
     public override fun onResume() {
         super.onResume()
         if ((Util.SDK_INT < 24 || player == null)){
-            initializePlayer()
+            initializePlayer2()
         }
     }
 
@@ -120,10 +122,14 @@ class PlayerActivity : ComponentActivity() {
     @OptIn(UnstableApi::class)
     private fun releasePlayer() {
         player?.run {
-
             playWhenReady = this.playWhenReady
             release()
         }
         player = null
+    }
+
+    // 按钮点击事件触发跳转
+    fun playVideo(view: View?) {
+        player?.play()
     }
 }

@@ -12,5 +12,9 @@
         app:show_buffering="when_playing"
         app:show_shuffle_button="true"
         />
-
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="play"
+        android:onClick="playVideo" />
 </LinearLayout>

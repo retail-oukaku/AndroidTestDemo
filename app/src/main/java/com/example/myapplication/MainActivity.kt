@@ -48,19 +48,7 @@ class MainActivity : ComponentActivity() {
         )
         startActivity(intent)
     }
-    // 按钮点击事件触发跳转
-    fun openPlayActivity2(view: View?) {
-//        val intent = Intent(
-//            this@MainActivity,
-//            PlayerActivity::class.java
-//        )
-//        startActivity(intent)
-        val intent = Intent(
-            this@MainActivity,
-            MediaPlayerActivity::class.java
-        )
-        startActivity(intent)
-    }
+
 
     // save oceans.mp4 in sandbox for test
     fun saveFileInSandbox(view: View?) {
