@@ -1,47 +1,25 @@
 package com.example.myapplication
 
-import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Bundle
-import android.view.View
-import android.widget.SimpleExpandableListAdapter
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.annotation.OptIn
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.media3.common.MediaItem
-import androidx.media3.common.SimpleBasePlayer
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.common.util.Util
-import androidx.media3.datasource.DefaultDataSourceFactory
-import androidx.media3.datasource.DefaultHttpDataSource
 import androidx.media3.exoplayer.ExoPlayer
-import androidx.media3.exoplayer.hls.HlsMediaSource
-import androidx.media3.exoplayer.source.ProgressiveMediaSource
+import androidx.media3.ui.PlayerView
 import com.example.myapplication.databinding.ActivityPlayerBinding
 
 
 class PlayerActivity : ComponentActivity() {
     private var player: ExoPlayer? = null
-    private var playWhenReady = true
-    private var currentWindow = 0
-    private var playbackPosition = 0L
+    private lateinit var videoView: PlayerView
 
-    // 为了获取页面的某些东西？
-    private val viewBinding by lazy(LazyThreadSafetyMode.NONE) {
-        ActivityPlayerBinding.inflate(layoutInflater)
-    }
-
+    // assetのmp4ファイルの再生機能
     private fun initializePlayer() {
         player = ExoPlayer.Builder(this).build().also {
-            exoPlayer -> viewBinding.videoView.player = exoPlayer
+            exoPlayer ->
 //            val mediaItem = MediaItem.fromUri(getString(R.string.media_url_mp3))
             val videoUri = Uri.parse("asset:///BigBuckBunny_320x180.mp4")
             // Build the media item.
@@ -53,6 +31,29 @@ class PlayerActivity : ComponentActivity() {
 // Start the playback.
             exoPlayer.play()
         }
+        videoView = findViewById(R.id.video_view)
+
+        videoView.player = player
+    }
+
+    // httpsのmp4ファイルの再生機能
+    private fun initializePlayer1() {
+        player = ExoPlayer.Builder(this).build().also {
+                exoPlayer ->
+//            val mediaItem = MediaItem.fromUri(getString(R.string.media_url_mp3))
+            val videoUri = Uri.parse("https://storage.googleapis.com/exoplayer-test-media-0/BigBuckBunny_320x180.mp4")
+            // Build the media item.
+            val mediaItem = MediaItem.fromUri(videoUri)
+// Set the media item to be played.
+            exoPlayer.setMediaItem(mediaItem)
+// Prepare the player.
+            exoPlayer.prepare()
+// Start the playback.
+            exoPlayer.play()
+        }
+        videoView = findViewById(R.id.video_view)
+
+        videoView.player = player
     }
 
 
@@ -67,16 +68,15 @@ class PlayerActivity : ComponentActivity() {
     public override fun onStart() {
         super.onStart()
         if (Util.SDK_INT >= 24) {
-            initializePlayer()
+            initializePlayer1()
         }
     }
 
     @OptIn(UnstableApi::class)
     public override fun onResume() {
         super.onResume()
-//        hideSystemUi()
         if ((Util.SDK_INT < 24 || player == null)){
-            initializePlayer()
+            initializePlayer1()
         }
     }
 
@@ -96,21 +96,11 @@ class PlayerActivity : ComponentActivity() {
         }
     }
 
-    @SuppressLint("InlinedApi")
-    private fun hideSystemUi() {
-        viewBinding.videoView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LOW_PROFILE
-                or View.SYSTEM_UI_FLAG_FULLSCREEN
-                or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
-    }
 
     @OptIn(UnstableApi::class)
     private fun releasePlayer() {
         player?.run {
-            playbackPosition = this.currentPosition
-            currentWindow = this.currentWindowIndex
+
             playWhenReady = this.playWhenReady
             release()
         }
