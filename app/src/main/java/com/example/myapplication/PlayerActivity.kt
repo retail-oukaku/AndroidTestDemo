@@ -12,7 +12,6 @@ import androidx.media3.common.util.UnstableApi
 import androidx.media3.common.util.Util
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
-import com.example.myapplication.databinding.ActivityPlayerBinding
 import java.io.File
 
 
@@ -24,7 +23,6 @@ class PlayerActivity : ComponentActivity() {
     private fun initializePlayer() {
         player = ExoPlayer.Builder(this).build().also {
             exoPlayer ->
-//            val mediaItem = MediaItem.fromUri(getString(R.string.media_url_mp3))
             val videoUri = Uri.parse("asset:///BigBuckBunny_320x180.mp4")
             // Build the media item.
             val mediaItem = MediaItem.fromUri(videoUri)
@@ -36,7 +34,6 @@ class PlayerActivity : ComponentActivity() {
             exoPlayer.play()
         }
         videoView = findViewById(R.id.video_view)
-
         videoView.player = player
     }
 
@@ -44,7 +41,6 @@ class PlayerActivity : ComponentActivity() {
     private fun initializePlayer1() {
         player = ExoPlayer.Builder(this).build().also {
                 exoPlayer ->
-//            val mediaItem = MediaItem.fromUri(getString(R.string.media_url_mp3))
             val videoUri = Uri.parse("https://storage.googleapis.com/exoplayer-test-media-0/BigBuckBunny_320x180.mp4")
             // Build the media item.
             val mediaItem = MediaItem.fromUri(videoUri)
@@ -64,10 +60,8 @@ class PlayerActivity : ComponentActivity() {
     private fun initializePlayer2() {
         player = ExoPlayer.Builder(this).build().also {
                 exoPlayer ->
-//            val mediaItem = MediaItem.fromUri(getString(R.string.media_url_mp3))
             val file = File(this.filesDir, "oceans.mp4")
             val videoUri = Uri.fromFile(file)
-
             // Build the media item.
             val mediaItem = MediaItem.fromUri(videoUri)
 // Set the media item to be played.
@@ -79,17 +73,15 @@ class PlayerActivity : ComponentActivity() {
 //            exoPlayer.play()
         }
         videoView = findViewById(R.id.video_view)
-
         videoView.player = player
     }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // 这里将 activity_main.xml 与 MainActivity 绑定
+        // 这里将 activity_player.xml 与 MainActivity 绑定
         setContentView(R.layout.activity_player)
     }
-
 
     @OptIn(UnstableApi::class)
     public override fun onStart() {
@@ -122,7 +114,6 @@ class PlayerActivity : ComponentActivity() {
             releasePlayer()
         }
     }
-
 
     @OptIn(UnstableApi::class)
     private fun releasePlayer() {

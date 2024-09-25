@@ -1,10 +1,8 @@
 package com.example.myapplication
 
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.activity.enableEdgeToEdge
@@ -37,18 +35,12 @@ class MainActivity : ComponentActivity() {
 
     // 按钮点击事件触发跳转
     fun openPlayActivity(view: View?) {
-//        val intent = Intent(
-//            this@MainActivity,
-//            PlayerActivity::class.java
-//        )
-//        startActivity(intent)
         val intent = Intent(
             this@MainActivity,
             PlayerActivity::class.java
         )
         startActivity(intent)
     }
-
 
     // save oceans.mp4 in sandbox for test
     fun saveFileInSandbox(view: View?) {
