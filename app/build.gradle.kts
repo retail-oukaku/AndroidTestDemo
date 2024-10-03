@@ -79,5 +79,6 @@ dependencies {
     implementation("androidx.media3:media3-exoplayer-dash:$mediaVersion")
     implementation ("androidx.media3:media3-exoplayer-hls:$mediaVersion")
 
-    implementation ("com.google.cloud:google-cloud-storage:2.41.0")
+    implementation(platform("com.google.firebase:firebase-bom:33.3.0"))
+    implementation("com.google.firebase:firebase-storage")
 }
