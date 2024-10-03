@@ -11,6 +11,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.myapplication.ui.theme.MyApplicationTheme
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.firebase.storage.FileDownloadTask
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -45,6 +50,22 @@ class MainActivity : ComponentActivity() {
     // save oceans.mp4 in sandbox for test
     fun saveFileInSandbox(view: View?) {
         copyAssetToInternalStorage(this, assetFileName = "oceans.mp4")
+    }
+
+    // GCSからダウンロード機能
+    fun downloadFile(view: View?) {
+        val storage: FirebaseStorage = FirebaseStorage.getInstance()
+        val storageRef: StorageReference = storage.getReference()
+        // 何のpath？
+        val fileRef: StorageReference = storageRef.child("path/to/file.jpg")
+
+        val localFile = File.createTempFile("images", "jpg")
+        fileRef.getFile(localFile)
+            .addOnSuccessListener(OnSuccessListener<FileDownloadTask.TaskSnapshot?> {
+                // ファイルのダウンロードが成功
+            }).addOnFailureListener(OnFailureListener {
+                // エラー処理
+            })
     }
 
     private fun copyAssetToInternalStorage(context: Context, assetFileName: String): File {

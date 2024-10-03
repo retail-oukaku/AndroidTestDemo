@@ -10,7 +10,7 @@
         android:layout_width="300dp"
         android:layout_height="300dp"
         app:show_buffering="when_playing"
-        app:show_shuffle_button="true"
+        app:show_shuffle_button="false"
         />
     <Button
         android:layout_width="wrap_content"

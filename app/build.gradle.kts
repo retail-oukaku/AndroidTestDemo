@@ -64,6 +64,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.media3.exoplayer.hls)
     implementation(libs.androidx.coordinatorlayout)
+    implementation(libs.firebase.storage.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -77,6 +78,6 @@ dependencies {
     implementation("androidx.media3:media3-ui:$mediaVersion")
     implementation("androidx.media3:media3-exoplayer-dash:$mediaVersion")
     implementation ("androidx.media3:media3-exoplayer-hls:$mediaVersion")
-    implementation ("com.github.bjoernpetersen:m3u-parser:1.3.0")
-    implementation ("androidx.media3:media3-datasource-okhttp:$mediaVersion")
+
+    implementation ("com.google.cloud:google-cloud-storage:2.41.0")
 }

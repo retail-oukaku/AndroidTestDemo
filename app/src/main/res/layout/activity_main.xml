@@ -34,4 +34,11 @@
         android:layout_height="wrap_content"
         android:text="Save oceans in sandbox"
         android:onClick="saveFileInSandbox" />
+
+    <Button
+        android:id="@+id/buttonDownload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Download"
+        android:onClick="downloadFile" />
 </LinearLayout>
