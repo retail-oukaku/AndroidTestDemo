@@ -56,16 +56,22 @@ class MainActivity : ComponentActivity() {
     fun downloadFile(view: View?) {
         val storage: FirebaseStorage = FirebaseStorage.getInstance()
         val storageRef: StorageReference = storage.getReference()
-        // 何のpath？
-        val fileRef: StorageReference = storageRef.child("path/to/file.jpg")
+        // 何のpath？権限がない、ダウンロード出来ません。
+//        val fileRef: StorageReference = storageRef.child("path/to/file.jpg")
+//
+//        val localFile = File.createTempFile("images", "jpg")
+//        fileRef.getFile(localFile)
+//            .addOnSuccessListener(OnSuccessListener<FileDownloadTask.TaskSnapshot?> {
+//                // ファイルのダウンロードが成功
+//            }).addOnFailureListener(OnFailureListener {
+//                // エラー処理
+//            })
 
-        val localFile = File.createTempFile("images", "jpg")
-        fileRef.getFile(localFile)
-            .addOnSuccessListener(OnSuccessListener<FileDownloadTask.TaskSnapshot?> {
-                // ファイルのダウンロードが成功
-            }).addOnFailureListener(OnFailureListener {
-                // エラー処理
-            })
+        storageRef.child("https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg").downloadUrl.addOnSuccessListener {
+            // Got the download URL for 'users/me/profile.png'
+        }.addOnFailureListener {
+            // Handle any errors
+        }
     }
 
     private fun copyAssetToInternalStorage(context: Context, assetFileName: String): File {
