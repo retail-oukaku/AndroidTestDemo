@@ -20,6 +20,20 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+
+
+        externalNativeBuild {
+            cmake {
+                cppFlags("-std=c++14")
+            }
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path("src/main/cpp/CMakeLists.txt")
+        }
     }
 
     buildTypes {
