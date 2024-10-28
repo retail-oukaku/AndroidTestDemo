@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import androidx.activity.ComponentActivity
+import java.io.FileOutputStream
+import java.io.IOException
 
 
 class MediaPlayerActivity : ComponentActivity() {
@@ -42,44 +44,48 @@ class MediaPlayerActivity : ComponentActivity() {
 
     // assetのmp4ファイルの再生機能
     private fun initializePlayer() {
-        // 获取AssetManager
-        val assetManager = assets
-        // 打开assets中的文件
-        val descriptor: AssetFileDescriptor = assetManager.openFd("sampleAdVideo.mp4")
+        try {
+            // 获取AssetManager
+            val assetManager = assets
+            // 打开assets中的文件
+            val descriptor: AssetFileDescriptor = assetManager.openFd("sampleAdVideo.mp4")
 
 
-        // 设置数据源
-        mediaPlayer!!.setDataSource(
-            descriptor.fileDescriptor,
-            descriptor.startOffset,
-            descriptor.length
-        )
+            // 设置数据源
+            mediaPlayer!!.setDataSource(
+                descriptor.fileDescriptor,
+                descriptor.startOffset,
+                descriptor.length
+            )
 
 
-        // 关闭descriptor
-        descriptor.close()
+            // 关闭descriptor
+            descriptor.close()
 
-        val surfaceView = findViewById<SurfaceView>(com.example.myapplication.R.id.surfaceView)
-        val holder = surfaceView.holder
-        holder.addCallback(object : SurfaceHolder.Callback {
-            override fun surfaceCreated(holder: SurfaceHolder) {
-                mediaPlayer?.setDisplay(holder)
-            }
+            val surfaceView = findViewById<SurfaceView>(com.example.myapplication.R.id.surfaceView)
+            val holder = surfaceView.holder
+            holder.addCallback(object : SurfaceHolder.Callback {
+                override fun surfaceCreated(holder: SurfaceHolder) {
+                    mediaPlayer?.setDisplay(holder)
+                }
+                override fun surfaceChanged(
+                    holder: SurfaceHolder,
+                    format: Int,
+                    width: Int,
+                    height: Int
+                ) {
+                }
 
-            override fun surfaceChanged(
-                holder: SurfaceHolder,
-                format: Int,
-                width: Int,
-                height: Int
-            ) {
-            }
+                override fun surfaceDestroyed(holder: SurfaceHolder) {
+                }
+            })
+            mediaPlayer!!.isLooping = true;
+            mediaPlayer!!.prepareAsync()
+            mediaPlayer!!.setOnPreparedListener { mediaPlayer!!.start() }
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
 
-            override fun surfaceDestroyed(holder: SurfaceHolder) {
-            }
-        })
-        mediaPlayer!!.isLooping = true;
-        mediaPlayer!!.prepareAsync()
-        mediaPlayer!!.setOnPreparedListener { mediaPlayer!!.start() }
     }
 
 

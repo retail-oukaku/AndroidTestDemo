@@ -31,7 +31,7 @@ class PlayerActivity : ComponentActivity() {
 // Prepare the player.
             exoPlayer.prepare()
 // Start the playback.
-//            exoPlayer.play()
+            exoPlayer.play()
         }
         videoView = findViewById(R.id.video_view)
         videoView.player = player
