@@ -23,7 +23,7 @@ class PlayerActivity : ComponentActivity() {
     private fun initializePlayer() {
         player = ExoPlayer.Builder(this).build().also {
             exoPlayer ->
-            val videoUri = Uri.parse("asset:///BigBuckBunny_320x180.mp4")
+            val videoUri = Uri.parse("asset:///sampleAdVideo.mp4")
             // Build the media item.
             val mediaItem = MediaItem.fromUri(videoUri)
 // Set the media item to be played.
@@ -31,7 +31,7 @@ class PlayerActivity : ComponentActivity() {
 // Prepare the player.
             exoPlayer.prepare()
 // Start the playback.
-            exoPlayer.play()
+//            exoPlayer.play()
         }
         videoView = findViewById(R.id.video_view)
         videoView.player = player
@@ -87,7 +87,7 @@ class PlayerActivity : ComponentActivity() {
     public override fun onStart() {
         super.onStart()
         if (Util.SDK_INT >= 24) {
-            initializePlayer2()
+            initializePlayer()
         }
     }
 
@@ -95,7 +95,7 @@ class PlayerActivity : ComponentActivity() {
     public override fun onResume() {
         super.onResume()
         if ((Util.SDK_INT < 24 || player == null)){
-            initializePlayer2()
+            initializePlayer()
         }
     }
 

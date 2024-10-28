@@ -41,4 +41,12 @@
         android:layout_height="wrap_content"
         android:text="Download"
         android:onClick="downloadFile" />
+
+
+    <Button
+        android:id="@+id/buttonMediaPlayer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Open Media Play Activity"
+        android:onClick="openMediaPlayActivity" />
 </LinearLayout>

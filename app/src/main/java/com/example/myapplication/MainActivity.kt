@@ -89,6 +89,15 @@ class MainActivity : ComponentActivity() {
 
         return file
     }
+
+    // 按钮点击事件触发跳转
+    fun openMediaPlayActivity(view: View?) {
+        val intent = Intent(
+            this@MainActivity,
+            MediaPlayerActivity::class.java
+        )
+        startActivity(intent)
+    }
 }
 
 @Composable
