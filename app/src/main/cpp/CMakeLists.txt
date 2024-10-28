@@ -19,3 +19,22 @@ find_library(log-lib log)
 
 # 链接dlib和log库到native-lib库
 target_link_libraries(native-lib dlib ${log-lib})
+
+# CMakeLists.txt
+#cmake_minimum_required(VERSION 3.4.1)
+#
+## 指定库路径
+#add_library(dlib STATIC IMPORTED)
+#set_target_properties(dlib PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/dlib/lib/libdlib.a)
+#
+## 添加包含头文件的路径
+#include_directories(${CMAKE_SOURCE_DIR}/dlib/include)
+#
+## 创建一个共享库（将Kotlin中的JNI方法与C++库连接）
+#add_library(native-lib SHARED ../../../src/main/cpp/native-lib.cpp)
+#
+## 链接库
+#target_link_libraries(native-lib dlib)
+
+
+

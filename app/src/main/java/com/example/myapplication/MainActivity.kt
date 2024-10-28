@@ -3,7 +3,9 @@ package com.example.myapplication
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.material3.Text
@@ -27,6 +29,11 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         // 这里将 activity_main.xml 与 MainActivity 绑定
         setContentView(R.layout.activity_main)
+
+
+        // 调用native方法
+        val result = nativeFunction()
+        Log.d("DlibResult", result)
     }
 
     // 按钮点击事件触发跳转
@@ -89,6 +96,11 @@ class MainActivity : ComponentActivity() {
 
         return file
     }
+    init {
+        System.loadLibrary("native-lib") // 加载native-lib库
+    }
+
+    external fun nativeFunction(): String
 }
 
 @Composable
