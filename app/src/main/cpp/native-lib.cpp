@@ -1,6 +1,7 @@
 
 #include <jni.h>
 #include <string>
+#include <dlib/image_processing.h>
 #include "dlib/include/image_processing.h"
 #include "dlib/include/image_io.h"
 #include "dlib/include/opencv.h" // 这个头文件用于将dlib图像与OpenCV兼容, 但可以不使用OpenCV的功能
