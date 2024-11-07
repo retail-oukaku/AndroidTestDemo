@@ -87,7 +87,7 @@ class PlayerActivity : ComponentActivity() {
     public override fun onStart() {
         super.onStart()
         if (Util.SDK_INT >= 24) {
-            initializePlayer2()
+            initializePlayer()
         }
     }
 
