@@ -74,6 +74,16 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    // 按钮点击事件触发跳转
+    fun skipToThird(view: View?) {
+        val intent = Intent(
+            this@MainActivity,
+            ThirdActivity::class.java
+        )
+        startActivity(intent)
+    }
+
+
     private fun copyAssetToInternalStorage(context: Context, assetFileName: String): File {
         val file = File(context.filesDir, assetFileName)
 

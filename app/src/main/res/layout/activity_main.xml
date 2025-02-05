@@ -41,4 +41,10 @@
         android:layout_height="wrap_content"
         android:text="Download"
         android:onClick="downloadFile" />
+    <Button
+        android:id="@+id/buttonThird"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SkipToThird"
+        android:onClick="skipToThird" />
 </LinearLayout>
