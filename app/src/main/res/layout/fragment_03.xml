@@ -10,4 +10,11 @@
         android:text="这是Fragement3"
         android:textSize="25sp"
         />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="这是Fragement3_test"
+        android:textSize="25sp"
+        />
 </LinearLayout>
